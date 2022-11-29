@@ -1,6 +1,9 @@
-const express=require('express');
-const cors=require('cors');
-const { dbConnection } = require('../db/config');
+import express from 'express'
+import cors from 'cors'
+import dbsequelize from '../db/config.js';
+
+import * as roomsRoutes from '../routes/rooms.routes.js'
+
 class Server{
     constructor(){
         this.app=express();
@@ -8,17 +11,27 @@ class Server{
         this.paths={
             rooms:'/api/rooms'
         }
+
+        this.dbConnection()
         
         //inicializacion de middlewares de nuestra aplicacion
         this.middlewares()
 
-        //Coneccion a DB
-        this.conectarDB();
+       
+
+        this.routes();
 
     }
 
-    async conectarDB(){
-        await dbConnection()
+    async dbConnection(){
+        try {
+            await dbsequelize.authenticate()
+            console.log('database online');
+        } catch (error) {
+            console.log(error);
+            throw new Error(error)
+            
+        }
     }
 
     middlewares(){
@@ -30,7 +43,7 @@ class Server{
     }
     
     routes(){
-        this.app.use(this.paths.rooms,require('../routes/rooms.routes'))
+        this.app.use(this.paths.rooms,roomsRoutes.default)
 
     }
 
@@ -44,4 +57,4 @@ class Server{
 
 }
 
-module.exports=Server;
+export default Server;

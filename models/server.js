@@ -17,8 +17,6 @@ class Server{
         //inicializacion de middlewares de nuestra aplicacion
         this.middlewares()
 
-       
-
         this.routes();
 
     }

@@ -1,11 +1,8 @@
 import { DataTypes } from 'sequelize';
 import dbsequelize from '../db/config.js';
 
-
-
 const Meeting = dbsequelize.define('Meeting', {
-
-  // Model attributes are defined here
+  
   id:{
     type: DataTypes.INTEGER,
     primaryKey:true,
@@ -16,7 +13,8 @@ const Meeting = dbsequelize.define('Meeting', {
   description:{type:DataTypes.STRING},
 
   startTime:{type:DataTypes.STRING},
-  endTime:{type:DataTypes.STRING}
+  endTime:{type:DataTypes.STRING},
+  available:{type:DataTypes.BOOLEAN}
   
 });
 

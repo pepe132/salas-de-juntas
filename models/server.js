@@ -12,15 +12,15 @@ class Server{
             rooms:'/api/rooms'
         }
 
+        //inicializacion de middlewares de nuestra aplicacion
         this.dbConnection()
         
-        //inicializacion de middlewares de nuestra aplicacion
         this.middlewares()
 
         this.routes();
 
     }
-
+    //Conexion a nuestra base de datos
     async dbConnection(){
         try {
             await dbsequelize.authenticate()
@@ -39,7 +39,7 @@ class Server{
         this.app.use(express.json())
 
     }
-    
+    //ruta principal de nuestra aplicacion
     routes(){
         this.app.use(this.paths.rooms,roomsRoutes.default)
 
